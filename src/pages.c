@@ -24,7 +24,7 @@ static size_t	os_page;
 #ifndef _WIN32
 #  define PAGES_PROT_COMMIT (PROT_READ | PROT_WRITE)
 #  define PAGES_PROT_DECOMMIT (PROT_NONE)
-static int	mmap_flags;
+static int	mmap_flags = MAP_32BIT;
 #endif
 static bool	os_overcommits;
 
@@ -570,7 +570,7 @@ pages_boot(void) {
 	}
 
 #ifndef _WIN32
-	mmap_flags = MAP_PRIVATE | MAP_ANON;
+	mmap_flags = MAP_PRIVATE | MAP_ANON | MAP_32BIT;
 #endif
 
 #ifdef JEMALLOC_SYSCTL_VM_OVERCOMMIT
